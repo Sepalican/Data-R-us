@@ -1,0 +1,15 @@
+##--R v4.0.4--##
+
+library(tidyverse)
+library(ggplot2)
+
+##--boxplot: Avg chicken weight according to chickfood. Colored by different food types--## 
+
+chickwts %>% ggplot(aes(feed, weight, color=feed))+ geom_boxplot() + geom_jitter(alpha=0.2) + scale_y_continuous(trans="log10") + 
+  ggtitle('Average weight of chicks according to food') + theme_minimal() + labs(x = 'Types of food', y= 'average chicken weight')
+
+
+##--doublecheck w/ summarize--##
+chickwts %>% group_by(feed) %>% summarize(chick_obs = length(feed), 
+                                                     average_weight = mean(weight),
+                                                     standard_dev = sd(weight))
